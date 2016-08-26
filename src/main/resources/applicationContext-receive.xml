@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+     http://www.springframework.org/schema/context  
+     http://www.springframework.org/schema/context/spring-context-4.0.xsd
+     http://www.springframework.org/schema/aop 
+     http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+     http://www.springframework.org/schema/rabbit
+     http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd
+     http://www.springframework.org/schema/task  
+     http://www.springframework.org/schema/task/spring-task-4.1.xsd">
+     <context:annotation-config />
+	<!-- 使AspectJ注解起作用：自动为匹配的类生成代理对象 -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<bean id="exceptionAspect" class="com.yijiajiao.rabbitmq.service.ExceptionAspect"/>
+	<bean id="baseDataLogic" class="com.yijiajiao.rabbitmq.service.BaseDataLogic"/>
+	<bean id="financeLogic" class="com.yijiajiao.rabbitmq.service.FinanceLogic"/>
+	<bean id="msgLogic" class="com.yijiajiao.rabbitmq.service.MsgLogic"/>
+	<bean id="ossLogic" class="com.yijiajiao.rabbitmq.service.OssLogic"/>
+	<bean id="saleLogic" class="com.yijiajiao.rabbitmq.service.SaleLogic"/>
+	<bean id="solutionLogic" class="com.yijiajiao.rabbitmq.service.SolutionLogic"/>
+	<bean id="teachLogic" class="com.yijiajiao.rabbitmq.service.TeachLogic"/>
+	<bean id="userLogic" class="com.yijiajiao.rabbitmq.service.UserLogic"/>
+	<bean id="wareLogic" class="com.yijiajiao.rabbitmq.service.WareLogic"/>
+	
+	<!--配置connection-factory，指定连接rabbit server参数 -->
+	<rabbit:connection-factory id="connectionFactory"
+		username="admin" password="admin" host="192.168.1.223" port="5672"/>
+		
+	<!--定义rabbit template用于数据的接收和发送 -->
+	<rabbit:template id="amqpTemplate"  connection-factory="connectionFactory" 
+	    exchange="test_exchange" />
+		
+	<!--通过指定下面的admin信息，当前producer中的exchange和queue会在rabbitmq服务器上自动生成 -->
+	<rabbit:admin connection-factory="connectionFactory" />
+
+	<!--定义queue durable:是否持久化,exclusive: 仅创建者可以使用的私有队列，断开后自动删除,auto_delete: 当所有消费客户端连接断开后，是否自动删除队列-->
+	<rabbit:queue name="test_queue" durable="true" auto-delete="false" exclusive="false" />
+
+	<!-- 定义direct exchange，绑定queueTest -->
+	<rabbit:direct-exchange name="test_exchange" durable="true" auto-delete="false">
+		<rabbit:bindings>
+			<rabbit:binding queue="test_queue" key="async_routingkey"></rabbit:binding>
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+	
+	<!-- 消息接收者 -->
+	<bean id="messageReceiver" class="com.yijiajiao.rabbitmq.message.ReceiveMsgHandler"></bean>
+	
+	<!-- queue litener  观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象-->
+    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto" concurrency="2">
+             <rabbit:listener queues="test_queue" ref="messageReceiver"/>
+    </rabbit:listener-container>
+    <!-- 配置线程池 -->  
+	<!--  	<bean id ="taskExecutor"  class ="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" >  
+	    线程池维护线程的最少数量  
+	<property name ="corePoolSize" value ="2" />  
+	    线程池维护线程所允许的空闲时间  
+	<property name ="keepAliveSeconds" value ="30000" />  
+	    线程池维护线程的最大数量  
+	<property name ="maxPoolSize" value ="1000" />  
+	    线程池所使用的缓冲队列  
+	<property name ="queueCapacity" value ="200" />  
+	</bean> -->
+	 <!-- <task:executor id="taskExecutor" pool-size="4-256" queue-capacity="128" /> -->
+
+</beans>
