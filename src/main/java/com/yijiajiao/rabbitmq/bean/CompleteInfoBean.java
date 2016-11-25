@@ -15,6 +15,60 @@ public class CompleteInfoBean {
 	private String areaCode;
 	private String address;
 	private String pic;
+	private String subjectCode;
+	private String subjectName;
+	private String stageCode;
+	private String stageName;
+	private int teachAge;
+	private String teacher_grade;
+	
+
+	public String getSubjectCode() {
+		return subjectCode;
+	}
+
+	public void setSubjectCode(String subjectCode) {
+		this.subjectCode = subjectCode;
+	}
+
+	public String getSubjectName() {
+		return subjectName;
+	}
+
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+
+	public String getStageCode() {
+		return stageCode;
+	}
+
+	public void setStageCode(String stageCode) {
+		this.stageCode = stageCode;
+	}
+
+	public String getStageName() {
+		return stageName;
+	}
+
+	public void setStageName(String stageName) {
+		this.stageName = stageName;
+	}
+
+	public int getTeachAge() {
+		return teachAge;
+	}
+
+	public void setTeachAge(int teachAge) {
+		this.teachAge = teachAge;
+	}
+	public String getTeacher_grade() {
+		return teacher_grade;
+	}
+
+	public void setTeacher_grade(String teacher_grade) {
+		this.teacher_grade = teacher_grade;
+	}
 
 	public String getUserOpenId() {
 		return userOpenId;

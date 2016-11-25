@@ -14,6 +14,15 @@ public class SetStoreBean {
 	private String areaCode;
 	private String storePic;
 	private String teachPic;
+	private String videoDescription;//视频描述
+
+	public String getVideoDescription() {
+		return videoDescription;
+	}
+
+	public void setVideoDescription(String videoDescription) {
+		this.videoDescription = videoDescription;
+	}
 
 	public String getStorePic() {
 		return storePic;

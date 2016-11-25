@@ -7,6 +7,15 @@ public class GradeAndBookTypeBean {
 	private String bookTypeName;
 	private String subjectCode;
 	private String subjectName;
+	private int durationId;
+	
+	public int getDurationId() {
+		return durationId;
+	}
+
+	public void setDurationId(int durationId) {
+		this.durationId = durationId;
+	}
 
 	public String getGradeName() {
 		return gradeName;

@@ -1,21 +1,16 @@
 package com.yijiajiao.rabbitmq.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import net.sf.json.JSONObject;
-
-import redis.clients.jedis.Jedis;
 
 import com.google.gson.Gson;
-import com.yijiajiao.rabbitmq.bean.CommitExamBean;
-import com.yijiajiao.rabbitmq.bean.UploadVideoParamBean;
-import com.yijiajiao.rabbitmq.bean.WareLiveBean;
-import com.yijiajiao.rabbitmq.bean.WareOne2OneBean;
-import com.yijiajiao.rabbitmq.bean.WareVideoBean;
+import com.yijiajiao.rabbitmq.bean.*;
 import com.yijiajiao.rabbitmq.util.Config;
 import com.yijiajiao.rabbitmq.util.JedisPoolUtil;
-import com.yijiajiao.rabbitmq.util.RabbitmqUtil;
+import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import redis.clients.jedis.Jedis;
+
+import static com.yijiajiao.rabbitmq.util.RabbitmqUtil.httpRest;
 
 /**
  * 商品资源方向
@@ -25,7 +20,7 @@ import com.yijiajiao.rabbitmq.util.RabbitmqUtil;
  */
 public class WareLogic {
 
-	private static Logger log =LoggerFactory.getLogger(WareLogic.class.getName());
+	private static Logger log = LoggerFactory.getLogger(WareLogic.class.getName());
 
 	private Jedis jedis = null;
 
@@ -36,7 +31,6 @@ public class WareLogic {
 	 * 
 	 * @param res
 	 * @param username
-	 * @param sn
 	 * @throws Exception
 	 */
 	private void putRedis(String res, String username) throws Exception {
@@ -161,8 +155,8 @@ public class WareLogic {
 		UploadVideoParamBean uploadVideoParamBean = gson.fromJson(
 				gson.toJson(params), UploadVideoParamBean.class);
 
-		System.out.println("gson.toJson(params): " + gson.toJson(params));
-		String res = RabbitmqUtil.httpRest(wares_server, uploadvideo, null,
+		log.info("gson.toJson(params): " + gson.toJson(params));
+		String res = httpRest(wares_server, uploadvideo, null,
 				uploadVideoParamBean, "POST");
 		log.info("uploadvideo return is " + res);
 		return res;
@@ -181,8 +175,8 @@ public class WareLogic {
 		Gson gson = new Gson();
 		WareLiveBean wareLiveBean = gson.fromJson(gson.toJson(params),
 				WareLiveBean.class);
-		System.out.println("gson.toJson(params): " + gson.toJson(params));
-		String res = RabbitmqUtil.httpRest(wares_server, warelive, null,
+		log.info("gson.toJson(params): " + gson.toJson(params));
+		String res = httpRest(wares_server, warelive, null,
 				wareLiveBean, "POST");
 		log.info("wareLive return is " + res);
 		return res;
@@ -203,8 +197,8 @@ public class WareLogic {
 		Gson gson = new Gson();
 		WareVideoBean wareVideoBean = gson.fromJson(gson.toJson(params),
 				WareVideoBean.class);
-		System.out.println("gson.toJson(params): " + gson.toJson(params));
-		String res = RabbitmqUtil.httpRest(wares_server, warevideo, null,
+		log.info("gson.toJson(params): " + gson.toJson(params));
+		String res = httpRest(wares_server, warevideo, null,
 				wareVideoBean, "POST");
 		log.info("wareVideo return is " + res);
 		return res;
@@ -224,8 +218,8 @@ public class WareLogic {
 		Gson gson = new Gson();
 		WareOne2OneBean wareOne2OneBean = gson.fromJson(gson.toJson(params),
 				WareOne2OneBean.class);
-		System.out.println("gson.toJson(params): " + gson.toJson(params));
-		String res = RabbitmqUtil.httpRest(wares_server, wareOne2One, null,
+		log.info("gson.toJson(params): " + gson.toJson(params));
+		String res = httpRest(wares_server, wareOne2One, null,
 				wareOne2OneBean, "POST");
 		log.info("wareOne2One return is " + res);
 		return res;
@@ -236,11 +230,21 @@ public class WareLogic {
 		Gson gson = new Gson();
 		CommitExamBean commitExamBean = gson.fromJson(gson.toJson(params),
 				CommitExamBean.class);
-		System.out.println("gson.toJson(params): " + gson.toJson(params));
-		String res = RabbitmqUtil.httpRest(wares_server, wareOne2One, null,
+		log.info("gson.toJson(params): " + gson.toJson(params));
+		String res = httpRest(wares_server, wareOne2One, null,
 				commitExamBean, "POST");
 		log.info("commitExam  return is " + res);
 		return res;
 	}
 
+
+	public String updateWaresLive(String tag, String cmd, JSONObject params) {
+		String updateWaresLive = Config.getString("updateWaresLive");
+		Gson gson = new Gson();
+		WareLiveBean wareLiveBean = gson.fromJson(gson.toJson(params),WareLiveBean.class);
+		log.info("gson.toJson(params): " + gson.toJson(params));
+		String res = httpRest(wares_server,updateWaresLive,null,wareLiveBean,"PUT");
+		log.info("updateWaresLive return is :-> "+res);
+		return res;
+	}
 }

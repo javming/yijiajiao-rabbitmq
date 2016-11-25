@@ -1,14 +1,13 @@
 package com.yijiajiao.rabbitmq.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.yijiajiao.rabbitmq.bean.FeedBackBean;
 import com.yijiajiao.rabbitmq.util.Config;
 import com.yijiajiao.rabbitmq.util.RabbitmqUtil;
-
 import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class OssLogic {
 

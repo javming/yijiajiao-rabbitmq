@@ -1,18 +1,12 @@
 package com.yijiajiao.rabbitmq.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import net.sf.json.JSONObject;
-
 import com.google.gson.Gson;
-import com.yijiajiao.rabbitmq.bean.CreateOrderBean;
-import com.yijiajiao.rabbitmq.bean.CreateRefundBean;
-import com.yijiajiao.rabbitmq.bean.CreatevOrderBean;
-import com.yijiajiao.rabbitmq.bean.UpdateAppraiseBean;
-import com.yijiajiao.rabbitmq.bean.UpdateAppraiseRebackBean;
+import com.yijiajiao.rabbitmq.bean.*;
 import com.yijiajiao.rabbitmq.util.Config;
 import com.yijiajiao.rabbitmq.util.RabbitmqUtil;
+import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SaleLogic {
 	private static Logger log =  LoggerFactory.getLogger(SaleLogic.class.getName());
@@ -51,6 +45,15 @@ public class SaleLogic {
 			v.setOpen_id(createOrderBean.getOpen_id());
 			v.setOrder_price(createOrderBean.getOrder_price());
 			v.setCommodityType(createOrderBean.getCommodityType());
+			v.setDiagnosisGoodsDetailCode(createOrderBean.getDiagnosisGoodsDetailCode());
+			v.setDiagnosisGoodsCode(createOrderBean.getDiagnosisGoodsCode());
+			v.setDiagnosticRecordsName(createOrderBean.getDiagnosticRecordsName());
+			v.setMultiPaperCode(createOrderBean.getMultiPaperCode());
+			v.setUsed(createOrderBean.getUsed());
+			v.setDiscountPrice(createOrderBean.getDiscountPrice());
+			v.setExamStartDate(createOrderBean.getExamStartDate());
+			v.setExamEndDate(createOrderBean.getExamEndDate());
+			v.setDiscountYard(createOrderBean.getDiscountYard());
 			o = v;
 		} else {
 			o = createOrderBean;

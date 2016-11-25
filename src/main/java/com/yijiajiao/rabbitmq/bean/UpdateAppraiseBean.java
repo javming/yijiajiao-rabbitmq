@@ -8,7 +8,7 @@ public class UpdateAppraiseBean {
 	private double appraiseCause2;
 	private double appraiseCause3;
 	private String appraiseContent;
-	private int isAnonymity;// 是否匿名 0不是匿名1是匿名;
+	private int isAnonymity;// 0不是匿名1是匿名
 	
 	public int getIsAnonymity() {
 		return isAnonymity;

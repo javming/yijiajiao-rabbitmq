@@ -1,8 +1,6 @@
 package com.yijiajiao.rabbitmq.util;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.*;
 import com.sun.jersey.api.client.WebResource.Builder;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
@@ -19,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class RabbitmqUtil {
 	public static String httpRest(String server, String url,
@@ -52,6 +52,38 @@ public class RabbitmqUtil {
 		System.out.println("接受其他系统信息：" + result);
 		return result;
 	}
+
+	public static void asyncHttpRest(String server, String url,
+									 Map<String, Object> param, Object object, String method) throws ExecutionException, InterruptedException {
+		ClientConfig config = new DefaultClientConfig();
+		config.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING,
+				Boolean.TRUE);
+		Client c = Client.create(config);
+		AsyncWebResource r = c.asyncResource("http://" + server + url);
+		System.out.println("请求其他地址：" + "http://" + server + url);
+		//Builder builder = r.header("Content-Type", MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON);
+		Future<ClientResponse> response = null;
+		if (param != null) {
+			Iterator i = param.entrySet().iterator();
+			while (i.hasNext()) {
+				Map.Entry en = (Map.Entry) i.next();
+				r.header((String) en.getKey(), en.getValue());
+			}
+		}
+		if (method.equals("POST")) {
+			response = r.post(ClientResponse.class, object);
+		} else if (method.equals("GET")) {
+			response = r.get(ClientResponse.class);
+		} else if (method.equals("PUT")) {
+			response = r.put(ClientResponse.class, object);
+		} else if (method.equals("DELETE")) {
+			response = r.delete(ClientResponse.class);
+		}
+		String result = response.get().getEntity(String.class);
+		System.out.println("接受其他系统信息：" + result);
+
+	}
+
 
 	public static ClientResponse resource(String url, Object requestEntity,
 			String method) {

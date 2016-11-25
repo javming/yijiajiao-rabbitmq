@@ -5,13 +5,6 @@ public class ApplyfacingteachtimeBean {
 	private String time;
 	private String userOpenId;
 	private String subjectCode;
-	
-	public String getSubjectCode() {
-		return subjectCode;
-	}
-	public void setSubjectCode(String subjectCode) {
-		this.subjectCode = subjectCode;
-	}
 	public String getDay() {
 		return day;
 	}
@@ -30,5 +23,12 @@ public class ApplyfacingteachtimeBean {
 	public void setUserOpenId(String userOpenId) {
 		this.userOpenId = userOpenId;
 	}
+	public String getSubjectCode() {
+		return subjectCode;
+	}
+	public void setSubjectCode(String subjectCode) {
+		this.subjectCode = subjectCode;
+	}
+
 	
 }

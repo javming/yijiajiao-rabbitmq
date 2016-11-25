@@ -16,7 +16,7 @@ public enum SystemStatus {
 
 	ID_NOT_FOUND(400001, "请求参数不匹配"),
 
-	TOKEN_TIME_OUT(600002, "token过期,请重新登录");
+	TOKEN_TIME_OUT(600002, "登录过期,请重新登录");
 
 	SystemStatus(int status, String str) {
 		setCode(status);

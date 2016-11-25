@@ -13,6 +13,21 @@ public class UpdateAskBean {
 	private String openId;
 	private String teaOpenId;
 	private List<Picture> pictureList;
+	private String bookTypeName;// 教材版本
+	private String bookTypeCode;// 教材编码
+	
+	public String getBookTypeName() {
+		return bookTypeName;
+	}
+	public void setBookTypeName(String bookTypeName) {
+		this.bookTypeName = bookTypeName;
+	}
+	public String getBookTypeCode() {
+		return bookTypeCode;
+	}
+	public void setBookTypeCode(String bookTypeCode) {
+		this.bookTypeCode = bookTypeCode;
+	}
 	public String getSolSubject() {
 		return solSubject;
 	}

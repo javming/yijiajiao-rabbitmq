@@ -3,6 +3,7 @@ package com.yijiajiao.rabbitmq.bean;
 import java.util.List;
 
 public class WareLiveBean {
+	private int id;
 	private String teacherId;
 	private String curriculumName;// 课程名称
 	private int curriculumType;
@@ -17,7 +18,78 @@ public class WareLiveBean {
 	private String describeInfo;
 	private String homework;
 	private String smallCourseware;
-	
+	private String isYjj;
+	private String moduleId;
+	private String yjjCode;
+	private String yjjName;
+	private String curriculumInfoAudio;
+	private String curriculumInfoVideo;
+	private String curriculumInfoPic;
+
+	public String getCurriculumInfoAudio() {
+		return curriculumInfoAudio;
+	}
+
+	public void setCurriculumInfoAudio(String curriculumInfoAudio) {
+		this.curriculumInfoAudio = curriculumInfoAudio;
+	}
+
+	public String getCurriculumInfoVideo() {
+		return curriculumInfoVideo;
+	}
+
+	public void setCurriculumInfoVideo(String curriculumInfoVideo) {
+		this.curriculumInfoVideo = curriculumInfoVideo;
+	}
+
+	public String getCurriculumInfoPic() {
+		return curriculumInfoPic;
+	}
+
+	public void setCurriculumInfoPic(String curriculumInfoPic) {
+		this.curriculumInfoPic = curriculumInfoPic;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getIsYjj() {
+		return isYjj;
+	}
+
+	public void setIsYjj(String isYjj) {
+		this.isYjj = isYjj;
+	}
+
+	public String getModuleId() {
+		return moduleId;
+	}
+
+	public void setModuleId(String moduleId) {
+		this.moduleId = moduleId;
+	}
+
+	public String getYjjCode() {
+		return yjjCode;
+	}
+
+	public void setYjjCode(String yjjCode) {
+		this.yjjCode = yjjCode;
+	}
+
+	public String getYjjName() {
+		return yjjName;
+	}
+
+	public void setYjjName(String yjjName) {
+		this.yjjName = yjjName;
+	}
+
 	public String getSmallCourseware() {
 		return smallCourseware;
 	}
